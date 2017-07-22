@@ -59,15 +59,15 @@ public class MainActivity extends AppCompatActivity {
         setColor(greenColor);
     }
 
-    private void setColor(int color) {
-        rootView.setBackgroundColor(color);
-        //// TODO: store color here
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
         //// TODO: load color
+    }
+
+    private void setColor(int color) {
+        rootView.setBackgroundColor(color);
+        //// TODO: store color here
     }
 
     @Override
