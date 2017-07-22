@@ -8,9 +8,22 @@
     android:id="@+id/mainActivity_rootView"
     tools:context="com.sdacademy.zientara.rafal.awesomeapp.MainActivity">
 
+    <Button
+        android:id="@+id/mainActivity_writeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Write data" />
+    <Button
+        android:id="@+id/mainActivity_readButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Read data" />
+
     <TextView
+        android:id="@+id/mainActivity_outputText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/medium_padding"
         android:text="Hello World!" />
 
 </LinearLayout>
