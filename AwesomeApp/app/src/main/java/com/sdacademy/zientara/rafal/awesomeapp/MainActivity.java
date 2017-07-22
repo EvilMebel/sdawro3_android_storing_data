@@ -1,6 +1,7 @@
 package com.sdacademy.zientara.rafal.awesomeapp;
 
-import android.graphics.Color;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.mainActivity_buttonGreen)
     Button buttonGreen;
 
+    int currentColor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,33 +49,41 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.mainActivity_buttonRed)
     public void clickRedButton() {
-        setColor(redColor);
+        setAndStoreColor(redColor);
     }
 
     @OnClick(R.id.mainActivity_buttonBlue)
     public void clickBlueButton() {
-        setColor(blueColor);
+        setAndStoreColor(blueColor);
     }
 
     @OnClick(R.id.mainActivity_buttonGreen)
     public void clickGreenButton() {
-        setColor(greenColor);
+        setAndStoreColor(greenColor);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //// TODO: load color
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        currentColor = sharedPreferences.getInt("background_color", whiteColor);
+        setColor(currentColor);
+    }
+
+    private void setAndStoreColor(int color) {
+        setColor(color);
+        storeColor();
     }
 
     private void setColor(int color) {
+        currentColor = color;
         rootView.setBackgroundColor(color);
-        //// TODO: store color here
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //// TODO: or store color here
+    private void storeColor() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("background_color", currentColor);
+        editor.apply();
     }
 }
