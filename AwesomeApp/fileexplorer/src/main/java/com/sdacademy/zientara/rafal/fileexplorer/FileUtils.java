@@ -20,10 +20,10 @@ public class FileUtils {
         return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
     }
 
-    public static List<Item> getFilesList(File f) {
+    public static List<FileItem> getFilesList(File f) {
         File[] dirs = f.listFiles();
-        List<Item> dir = new ArrayList<Item>();
-        List<Item> fls = new ArrayList<Item>();
+        List<FileItem> dir = new ArrayList<FileItem>();
+        List<FileItem> fls = new ArrayList<FileItem>();
         try {
             for (File currentFile : dirs) {
                 Date lastModDate = new Date(currentFile.lastModified());
@@ -31,10 +31,10 @@ public class FileUtils {
                 String date_modify = formater.format(lastModDate);
                 if (currentFile.isDirectory()) {
                     String num_item = getFilesCountDescription(currentFile);
-                    dir.add(new Item(currentFile.getName(), num_item, date_modify, currentFile.getAbsolutePath(), true));
+                    dir.add(new FileItem(currentFile.getName(), num_item, date_modify, currentFile.getAbsolutePath(), true));
                 } else {
 
-                    fls.add(new Item(currentFile.getName(), currentFile.length() + " Byte", date_modify, currentFile.getAbsolutePath(), false));
+                    fls.add(new FileItem(currentFile.getName(), currentFile.length() + " Byte", date_modify, currentFile.getAbsolutePath(), false));
                 }
             }
         } catch (Exception e) {
@@ -45,7 +45,7 @@ public class FileUtils {
         Collections.sort(fls);
         dir.addAll(fls);
         if (!f.getName().equalsIgnoreCase("sdcard"))
-            dir.add(0, new Item("..", "", "Parent Directory", f.getParent(), true));
+            dir.add(0, new FileItem("..", "", "Parent Directory", f.getParent(), true));
         return dir;
     }
 

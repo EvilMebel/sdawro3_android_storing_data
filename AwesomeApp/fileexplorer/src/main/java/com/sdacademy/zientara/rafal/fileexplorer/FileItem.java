@@ -1,13 +1,13 @@
 package com.sdacademy.zientara.rafal.fileexplorer;
 
-public class Item implements Comparable<Item> {
+public class FileItem implements Comparable<FileItem> {
     private String name;
     private String description;
     private String date;
     private String path;
     private boolean isDirectory;
 
-    public Item(String name, String description, String date, String path, boolean isDirectory) {
+    public FileItem(String name, String description, String date, String path, boolean isDirectory) {
         this.name = name;
         this.description = description;
         this.date = date;
@@ -55,7 +55,7 @@ public class Item implements Comparable<Item> {
         isDirectory = directory;
     }
 
-    public int compareTo(Item o) {
+    public int compareTo(FileItem o) {
         if (this.name != null)
             return this.name.toLowerCase().compareTo(o.name.toLowerCase());
         else
