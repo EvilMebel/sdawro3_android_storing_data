@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Shared Preferences</string>
+    <string name="app_name">Fragments App</string>
+
+    <string name="email_dummy_message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet luctus eros. Ut iaculis fermentum nisl. Duis at vehicula massa, a consequat elit. Ut semper mauris quis ante molestie efficitur. Proin pretium rutrum nunc nec tristique. Suspendisse rhoncus porta dictum. Nullam in vulputate felis. Nullam pretium non lectus eu cursus. Nunc velit massa, consectetur a tempor at, consectetur varius mi. Donec ac felis porttitor, egestas nulla sed, fermentum tortor.</string>
+
 </resources>
