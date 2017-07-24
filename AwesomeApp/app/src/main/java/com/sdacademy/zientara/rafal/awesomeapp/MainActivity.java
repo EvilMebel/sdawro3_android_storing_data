@@ -1,11 +1,16 @@
 package com.sdacademy.zientara.rafal.awesomeapp;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.sdacademy.zientara.rafal.awesomeapp.preferences.TermsStatePreferences;
 
 import butterknife.BindColor;
 import butterknife.BindView;
@@ -13,7 +18,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-
     @BindView(R.id.mainActivity_rootView)
     View rootView;
 
@@ -45,6 +49,44 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        checkTerms();
+    }
+
+    private void checkTerms() {
+        if(!areTermsAccepted()) {
+            showTermsDialog();
+        }
+    }
+
+    private void showTermsDialog() {
+        new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle("Regulamin")
+                .setMessage("Akceptuj albo wypad!")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        storeTermsAccepted();
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton("Nigdy!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(), "TO NIE! D:", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    private void storeTermsAccepted() {
+        TermsStatePreferences.setTermsAccepted(this, true);
+    }
+
+    private boolean areTermsAccepted() {
+        return TermsStatePreferences.areTermsAccepted(this);
     }
 
     @OnClick(R.id.mainActivity_buttonRed)
@@ -85,5 +127,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("background_color", currentColor);
         editor.apply();
+        //editor.commit();//albo to
     }
 }
