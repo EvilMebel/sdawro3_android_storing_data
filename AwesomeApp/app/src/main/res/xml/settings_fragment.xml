@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Common settings">
+
+        <CheckBoxPreference
+            android:key="parent_checkbox_preference"
+            android:title="Hide files"
+            android:summary="Don't show " />
+
+        <!-- The visual style of a child is defined by this styled theme attribute. -->
+        <CheckBoxPreference
+            android:key="child_checkbox_preference"
+            android:dependency="parent_checkbox_preference"
+            android:layout="?android:attr/preferenceLayoutChild"
+            android:title="Dodatkowa zależna opcja"
+            android:summary="Dodatkowy opis" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

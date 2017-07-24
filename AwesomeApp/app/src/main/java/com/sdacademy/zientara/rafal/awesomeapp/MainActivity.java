@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements TitlesFragment.On
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         addToFirstContainer(new TitlesFragment(), false);
-        addToFirstContainer(new TitlesFragment(), true);
         addToSecondContainer(new DetailsFragment(), false);
         addToSecondContainer(new DetailsFragment(), true);
     }
