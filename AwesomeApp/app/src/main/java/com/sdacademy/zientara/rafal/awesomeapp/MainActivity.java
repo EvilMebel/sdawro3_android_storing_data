@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.ExplorerFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.SettingsFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ExplorerFragment.ExploratorInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,5 +53,10 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.mainActivity_fragmentContainer, new SettingsFragment());
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onPathClicked(String newFilePath) {
+        openExplorerFragment(newFilePath);
     }
 }

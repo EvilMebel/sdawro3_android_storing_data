@@ -1,17 +1,22 @@
 package com.sdacademy.zientara.rafal.awesomeapp.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sdacademy.zientara.rafal.awesomeapp.models.FileItem;
 import com.sdacademy.zientara.rafal.awesomeapp.R;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +33,7 @@ public class ExplorerFragment extends Fragment {
 
     private String currentFilePath;
 
-    private OnFragmentInteractionListener mListener;
+    private ExploratorInteractionListener mListener;
 
     public ExplorerFragment() {
         // Required empty public constructor
@@ -62,16 +67,32 @@ public class ExplorerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //// TODO: 25.07.2017 show filePath
         filePathText.setText(currentFilePath);
+        loadFileList();
+    }
+
+    private void loadFileList() {
+        List<FileItem> fileItems = new ArrayList<>();
+        File file = new File(currentFilePath);
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (File currentFile : files) {
+                FileItem fileItem = new FileItem(currentFile);
+                fileItems.add(fileItem);
+            }
+        }
+
+        Log.d("PLICZKI", "Ile plikow lub folderow " + fileItems.size());
+
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof ExploratorInteractionListener) {
+            mListener = (ExploratorInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement ExploratorInteractionListener");
         }
     }
 
@@ -81,8 +102,7 @@ public class ExplorerFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public interface ExploratorInteractionListener {
+        void onPathClicked(String newFilePath);
     }
 }
