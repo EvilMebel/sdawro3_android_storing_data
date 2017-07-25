@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.sdacademy.zientara.rafal.awesomeapp.adapters.FilesAdapter;
 import com.sdacademy.zientara.rafal.awesomeapp.models.FileItem;
 import com.sdacademy.zientara.rafal.awesomeapp.R;
 
@@ -22,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class ExplorerFragment extends Fragment {
+public class ExplorerFragment extends Fragment implements FilesAdapter.OnFileItemClicked {
     private static final String ARG_PATH_PARAM = "param1";
 
     @BindView(R.id.explorerFragment_filePathText)
@@ -34,6 +36,7 @@ public class ExplorerFragment extends Fragment {
     private String currentFilePath;
 
     private ExploratorInteractionListener mListener;
+    private FilesAdapter filesAdapter;
 
     public ExplorerFragment() {
         // Required empty public constructor
@@ -65,9 +68,12 @@ public class ExplorerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //// TODO: 25.07.2017 show filePath
-        filePathText.setText(currentFilePath);
+        updateFilePath();
         loadFileList();
+    }
+
+    private void updateFilePath() {
+        filePathText.setText(currentFilePath);
     }
 
     private void loadFileList() {
@@ -75,14 +81,18 @@ public class ExplorerFragment extends Fragment {
         File file = new File(currentFilePath);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            for (File currentFile : files) {
-                FileItem fileItem = new FileItem(currentFile);
-                fileItems.add(fileItem);
-            }
-        }
-
+            if (files != null)
+                for (File currentFile : files) {
+                    FileItem fileItem = new FileItem(currentFile);
+                    fileItems.add(fileItem);
+                }
+        } else
+            fileItems.add(new FileItem(file));
         Log.d("PLICZKI", "Ile plikow lub folderow " + fileItems.size());
 
+        filesAdapter = new FilesAdapter(getActivity().getApplicationContext(), fileItems, this);
+        recyclerView.setAdapter(filesAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
     }
 
     @Override
@@ -100,6 +110,14 @@ public class ExplorerFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        filesAdapter = null;
+    }
+
+    @Override
+    public void onFileItemClicked(FileItem fileItem) {
+        updateFilePath();
+        currentFilePath = fileItem.getPath();
+        loadFileList();
     }
 
     public interface ExploratorInteractionListener {
