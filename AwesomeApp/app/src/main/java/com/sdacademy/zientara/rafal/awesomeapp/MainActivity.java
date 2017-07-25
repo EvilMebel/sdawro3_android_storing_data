@@ -1,6 +1,7 @@
 package com.sdacademy.zientara.rafal.awesomeapp;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.sdacademy.zientara.rafal.awesomeapp.fragments.ExplorerFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +22,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        openSettingsFragment();
+        openExplorerFragment(Environment.getRootDirectory().getPath());
+    }
+
+    private void openExplorerFragment(String path) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.mainActivity_fragmentContainer, ExplorerFragment.newInstance(path));
+//        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
