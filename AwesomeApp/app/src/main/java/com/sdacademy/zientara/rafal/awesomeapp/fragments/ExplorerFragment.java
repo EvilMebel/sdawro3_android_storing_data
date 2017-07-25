@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 
 public class ExplorerFragment extends Fragment implements FilesAdapter.OnFileItemClicked {
     private static final String ARG_PATH_PARAM = "param1";
+    public static final boolean USE_ACTIVITY_TO_NAVIGATE = true;
 
     @BindView(R.id.explorerFragment_filePathText)
     TextView filePathText;
@@ -90,6 +91,8 @@ public class ExplorerFragment extends Fragment implements FilesAdapter.OnFileIte
             fileItems.add(new FileItem(file));
         Log.d("PLICZKI", "Ile plikow lub folderow " + fileItems.size());
 
+        fileItems.add(0, new FileItem(file.getParent()));
+
         filesAdapter = new FilesAdapter(getActivity().getApplicationContext(), fileItems, this);
         recyclerView.setAdapter(filesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
@@ -115,9 +118,13 @@ public class ExplorerFragment extends Fragment implements FilesAdapter.OnFileIte
 
     @Override
     public void onFileItemClicked(FileItem fileItem) {
-        updateFilePath();
-        currentFilePath = fileItem.getPath();
-        loadFileList();
+        if (USE_ACTIVITY_TO_NAVIGATE)
+            mListener.onPathClicked(fileItem.getPath());
+        else {
+            updateFilePath();
+            currentFilePath = fileItem.getPath();
+            loadFileList();
+        }
     }
 
     public interface ExploratorInteractionListener {

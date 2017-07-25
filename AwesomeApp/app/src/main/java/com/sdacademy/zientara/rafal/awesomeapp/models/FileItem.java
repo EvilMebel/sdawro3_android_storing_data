@@ -21,6 +21,12 @@ public class FileItem {
         path = currentFile.getPath();
     }
 
+    public FileItem(String parentFilePath) {
+        path = parentFilePath;
+        directory = true;
+        name = "..";
+    }
+
     public String getName() {
         return name;
     }

@@ -2,12 +2,9 @@ package com.sdacademy.zientara.rafal.awesomeapp;
 
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -22,13 +19,14 @@ public class MainActivity extends AppCompatActivity implements ExplorerFragment.
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        openExplorerFragment(Environment.getRootDirectory().getPath());
+        openExplorerFragment(Environment.getRootDirectory().getPath(), false);
     }
 
-    private void openExplorerFragment(String path) {
+    private void openExplorerFragment(String path, boolean canGoBack) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.mainActivity_fragmentContainer, ExplorerFragment.newInstance(path));
-//        transaction.addToBackStack(null);
+        if (canGoBack)
+            transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -57,6 +55,6 @@ public class MainActivity extends AppCompatActivity implements ExplorerFragment.
 
     @Override
     public void onPathClicked(String newFilePath) {
-        openExplorerFragment(newFilePath);
+        openExplorerFragment(newFilePath, true);
     }
 }
