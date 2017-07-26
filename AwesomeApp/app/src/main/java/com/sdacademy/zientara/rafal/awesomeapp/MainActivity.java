@@ -23,7 +23,10 @@ public class MainActivity extends AppCompatActivity implements ExplorerFragment.
     }
 
     private void openExplorerFragment(String path, boolean canGoBack) {
+        int enterAnim = android.R.anim.slide_in_left;
+        int exitAnim = android.R.anim.slide_out_right;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(enterAnim, exitAnim, enterAnim, exitAnim);
         transaction.add(R.id.mainActivity_fragmentContainer, ExplorerFragment.newInstance(path));
         if (canGoBack)
             transaction.addToBackStack(null);

@@ -121,8 +121,8 @@ public class ExplorerFragment extends Fragment implements FilesAdapter.OnFileIte
         if (USE_ACTIVITY_TO_NAVIGATE)
             mListener.onPathClicked(fileItem.getPath());
         else {
-            updateFilePath();
             currentFilePath = fileItem.getPath();
+            updateFilePath();
             loadFileList();
         }
     }
