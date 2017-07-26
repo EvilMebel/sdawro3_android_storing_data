@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements ExplorerFragment.
     private static final int ENTER_ANIM = android.R.anim.slide_in_left;
     private static final int EXIT_ANIM = android.R.anim.slide_out_right;
     private static final int EXTERNAL_STORAGE_REQUEST_CODE = 1500;
+    private String currentPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +63,16 @@ public class MainActivity extends AppCompatActivity implements ExplorerFragment.
                 return true;
 
             case R.id.action_goto_external:
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, EXTERNAL_STORAGE_REQUEST_CODE);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, EXTERNAL_STORAGE_REQUEST_CODE);
                 return true;
 
 
             case R.id.action_goto_root:
                 openExplorerFragment(Environment.getRootDirectory().getPath(), false);
                 return true;
+
+            case R.id.action_add_file:
+                openFragment(OpenFileFragment.newInstance(currentPath + "filename", true), true);
 
 
         }
@@ -79,8 +83,9 @@ public class MainActivity extends AppCompatActivity implements ExplorerFragment.
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case EXTERNAL_STORAGE_REQUEST_CODE: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                if (grantResults.length == 2
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED)
                     openExplorerFragment(Environment.getExternalStorageDirectory().getPath(), false);
                 else
                     Toast.makeText(this, ":(", Toast.LENGTH_SHORT).show();
@@ -99,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements ExplorerFragment.
     @Override
     public void onDirectoryClicked(String newPath) {
         openExplorerFragment(newPath, true);
+        currentPath = newPath;
     }
 
     @Override
@@ -108,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements ExplorerFragment.
 
     @Override
     public void onBackClicked() {
+        //// TODO: 26.07.2017 get fragment and get info
         getSupportFragmentManager().popBackStack();
     }
 

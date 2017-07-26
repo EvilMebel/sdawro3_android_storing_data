@@ -4,6 +4,12 @@
     tools:context="com.sdacademy.zientara.rafal.awesomeapp.MainActivity">
 
     <item
+        android:id="@+id/action_add_file"
+        android:orderInCategory="98"
+        android:title="Add new file"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_goto_external"
         android:orderInCategory="98"
         android:title="External Storage"
