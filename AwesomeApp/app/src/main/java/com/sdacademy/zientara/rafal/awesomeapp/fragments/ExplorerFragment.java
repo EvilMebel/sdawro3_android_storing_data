@@ -119,9 +119,16 @@ public class ExplorerFragment extends Fragment implements FilesAdapter.OnFileIte
 
     @Override
     public void onFileItemClicked(FileItem fileItem) {
-        if (USE_ACTIVITY_TO_NAVIGATE)
-            mListener.onPathClicked(fileItem.getPath());
-        else {
+        if (USE_ACTIVITY_TO_NAVIGATE) {
+            if(fileItem.isDirectory()) {
+                if(fileItem.getName().equals(".."))
+                    mListener.onBackClicked();
+                else
+                    mListener.onDirectoryClicked(fileItem.getPath());
+            } else
+                mListener.onFileClicked(fileItem.getPath());
+
+        } else {
             currentFilePath = fileItem.getPath();
             updateFilePath();
             loadFileList();
@@ -129,6 +136,8 @@ public class ExplorerFragment extends Fragment implements FilesAdapter.OnFileIte
     }
 
     public interface ExploratorInteractionListener {
-        void onPathClicked(String newFilePath);
+        void onDirectoryClicked(String newPath);
+        void onFileClicked(String filePath);
+        void onBackClicked();
     }
 }

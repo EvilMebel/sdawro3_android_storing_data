@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="fragmentBackground">@android:color/white</color>
+    <color name="fragmentBackground">#CCE8EAF6</color>
+
 </resources>
