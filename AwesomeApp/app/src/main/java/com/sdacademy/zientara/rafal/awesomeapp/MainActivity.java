@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.ExplorerFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.SettingsFragment;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity implements ExplorerFragment.ExploratorInteractionListener {
 
     @Override

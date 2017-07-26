@@ -91,7 +91,8 @@ public class ExplorerFragment extends Fragment implements FilesAdapter.OnFileIte
             fileItems.add(new FileItem(file));
         Log.d("PLICZKI", "Ile plikow lub folderow " + fileItems.size());
 
-        fileItems.add(0, new FileItem(file.getParent()));
+        if (!currentFilePath.equals(File.separator))
+            fileItems.add(0, new FileItem(file.getParent()));
 
         filesAdapter = new FilesAdapter(getActivity().getApplicationContext(), fileItems, this);
         recyclerView.setAdapter(filesAdapter);
