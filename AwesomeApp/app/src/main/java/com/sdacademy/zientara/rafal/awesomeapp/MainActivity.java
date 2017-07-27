@@ -6,9 +6,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.activeandroid.ActiveAndroid;
+import com.sdacademy.zientara.rafal.awesomeapp.fragments.CategoriesFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.SettingsFragment;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements CategoriesFragment.InteractionListener {
     private static final int EXTERNAL_STORAGE_REQUEST_CODE = 1500;
     private String currentPath;
 
@@ -18,9 +20,12 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        openSettingsFragment();
+        openCategoriesFragment();
     }
 
+    private void openCategoriesFragment() {
+        openFragment(new CategoriesFragment(), false);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -37,9 +42,13 @@ public class MainActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     private void openSettingsFragment() {
         openFragment(new SettingsFragment(), false);
     }
 
+    @Override
+    public void doNothing() {
+
+    }
 }

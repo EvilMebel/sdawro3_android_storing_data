@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.sdacademy.zientara.rafal.awesomeapp.fragments.CategoriesFragment">
+
+    <EditText
+        android:id="@+id/categoriesFragment_categoryName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/categoriesFragment_addCategory"
+        android:layout_width="match_parent"
+        android:text="Add category"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/categoriesFragment_outputText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="24sp"
+        android:text="@string/hello_blank_fragment" />
+
+</LinearLayout>
