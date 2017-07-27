@@ -55,15 +55,13 @@ public class MainActivity extends BaseActivity implements ExplorerFragment.Explo
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, EXTERNAL_STORAGE_REQUEST_CODE);
                 return true;
 
-
             case R.id.action_goto_root:
                 openExplorerFragment(Environment.getRootDirectory().getPath(), false);
                 return true;
 
             case R.id.action_add_file:
-                openFragment(OpenFileFragment.newInstance(currentPath + File.separator + "filename", true), true);
-
-
+                openFragment(OpenFileFragment.newInstance(currentPath + File.separator + "filename.txt", true), true);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -106,7 +106,7 @@ public class OpenFileFragment extends Fragment {
                 currentByteSize += buffer.length;
             }
 
-            if (currentByteSize < maxBytesSize)
+            if (currentByteSize >= maxBytesSize)
                 fileContent.append("TOO MUCH DATA!");
 
             outputText.setText(fileContent.toString());
@@ -123,10 +123,9 @@ public class OpenFileFragment extends Fragment {
     public void clickSaveButton() {
         File file = new File(currentFilePath);
         try {
-            if(!file.exists()) {
-                file.mkdirs();
+            if(!file.exists())
                 file.createNewFile();
-            }
+
             FileOutputStream fos = new FileOutputStream(file);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             String dataToSave = outputText.getText().toString();
