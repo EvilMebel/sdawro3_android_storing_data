@@ -19,19 +19,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link InteractionListener} interface
- * to handle interaction events.
- * Use the {@link OpenFileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class OpenFileFragment extends Fragment {
     private static final String ARG_PATH_PARAM = "param1";
     private static final String ARG_NEW_FILE_PARAM = "param2";
@@ -48,6 +41,7 @@ public class OpenFileFragment extends Fragment {
     }
 
     public static OpenFileFragment newInstance(String newFilePath, boolean isNewFile) {
+        //// TODO: 27.07.2017 isNewFile == false?! edycja pliku?
         OpenFileFragment fragment = new OpenFileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PATH_PARAM, newFilePath);
@@ -95,6 +89,7 @@ public class OpenFileFragment extends Fragment {
 //        File file = new File(currentFilePath);
 //        file.exists();
 
+        //TODO sprawdzic czy wogole mozemy czytac plik
         try {
             FileInputStream fis = new FileInputStream(currentFilePath);//FileNotFoundException
             StringBuffer fileContent = new StringBuffer("");
@@ -127,17 +122,23 @@ public class OpenFileFragment extends Fragment {
     @OnClick(R.id.openFileFragment_saveButton)
     public void clickSaveButton() {
         File file = new File(currentFilePath);
-        if(!file.exists())
-            file.mkdirs();
         try {
+            if(!file.exists()) {
+                file.mkdirs();
+                file.createNewFile();
+            }
             FileOutputStream fos = new FileOutputStream(file);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
             String dataToSave = outputText.getText().toString();
-            fos.write(dataToSave.getBytes());
-            fos.close();
+            osw.write(dataToSave);
+            osw.flush();
+            osw.close();
             showToast("DONE!");
+            //// TODO: 27.07.2017 interakcja z activity - zamknij ten fragment i odswiez liste 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             showToast("FAIL! " + e.getMessage());
+            //// TODO: 27.07.2017 interakcja z activity  - zamknij fragment, pokaz blad
         } catch (IOException e) {
             e.printStackTrace();
             showToast("FAIL! " + e.getMessage());

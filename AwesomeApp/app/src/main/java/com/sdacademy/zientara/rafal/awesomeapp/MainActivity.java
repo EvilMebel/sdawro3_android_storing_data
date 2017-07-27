@@ -17,6 +17,8 @@ import com.sdacademy.zientara.rafal.awesomeapp.fragments.ExplorerFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.OpenFileFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.SettingsFragment;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity implements ExplorerFragment.ExploratorInteractionListener,
         OpenFileFragment.InteractionListener{
     private static final int ENTER_ANIM = android.R.anim.slide_in_left;
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements ExplorerFragment.
                 return true;
 
             case R.id.action_add_file:
-                openFragment(OpenFileFragment.newInstance(currentPath + "filename", true), true);
+                openFragment(OpenFileFragment.newInstance(currentPath + File.separator + "filename", true), true);
 
 
         }
