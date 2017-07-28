@@ -15,10 +15,12 @@ import android.widget.Button;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.sdacademy.zientara.rafal.awesomeapp.R;
 import com.sdacademy.zientara.rafal.awesomeapp.adapter.ProductsAdapter;
 import com.sdacademy.zientara.rafal.awesomeapp.dialogs.AddProductDialog;
+import com.sdacademy.zientara.rafal.awesomeapp.models.Category;
 import com.sdacademy.zientara.rafal.awesomeapp.models.Product;
 
 import java.util.List;
@@ -59,6 +61,18 @@ public class ProductsFragment extends Fragment {
 
     private void loadProducts() {
         productsList = new Select().from(Product.class).execute();
+        /*productsList = new Select().from(Product.class).as("p")
+                .join(Category.class).as("c")
+                .on("c.id == p.category")
+                .where("c.id == 1").execute();
+        */
+        
+        /*
+    SELECT * FROM products
+    JOIN categories AS cat
+    ON categories.id == porducts.categoryid
+    WHERE categories.id == 1
+     */
         productsAdapter = new ProductsAdapter(getActivity(), productsList);
         recyclerView.setAdapter(productsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

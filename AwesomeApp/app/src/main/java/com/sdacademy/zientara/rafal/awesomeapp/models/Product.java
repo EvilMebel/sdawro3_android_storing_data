@@ -92,4 +92,5 @@ public class Product extends Model {
     public String getDetails() {
         return String.format("%s x%s %s$ (%s)",name, count, price, category.getName());
     }
+
 }
