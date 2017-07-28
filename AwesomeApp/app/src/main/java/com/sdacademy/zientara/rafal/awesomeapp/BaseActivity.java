@@ -27,6 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             transaction.replace(R.id.mainActivity_fragmentContainer, fragment);
         transaction.commit();
     }
+    
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
