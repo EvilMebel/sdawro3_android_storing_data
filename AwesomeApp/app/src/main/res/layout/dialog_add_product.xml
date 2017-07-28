@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Name"
+        android:text="Pomidor"
         android:inputType="textPersonName" />
 
     <Spinner
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Count"
+        android:text="5"
         android:inputType="numberDecimal" />
 
     <EditText
@@ -30,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:text="20"
         android:hint="Price"
         android:inputType="numberDecimal" />
 

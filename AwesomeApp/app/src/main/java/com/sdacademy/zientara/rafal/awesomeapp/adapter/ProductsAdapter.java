@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import com.sdacademy.zientara.rafal.awesomeapp.R;
 import com.sdacademy.zientara.rafal.awesomeapp.models.Product;
@@ -34,10 +35,20 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
-        Product product = productList.get(position);
-        holder.checkBox.setChecked(product.getPurchased());
+        final Product product = productList.get(position);
+        Integer isPurchased = product.getIsPurchased();
+        if(isPurchased!=null)
+            holder.checkBox.setChecked(isPurchased != 0);
+
         //// TODO: 28.07.2017 more details
-        holder.details.setText(product.getName());
+        holder.details.setText(product.getDetails());
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                product.setIsPurchased(isChecked ? 1 : 0);
+                product.save();
+            }
+        });
     }
 
     @Override

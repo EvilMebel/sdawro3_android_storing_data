@@ -24,19 +24,6 @@ public class MainActivity extends BaseActivity implements CategoriesFragment.Int
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         openProductsFragment();
-
-        initCategories();
-
-    }
-
-    private void initCategories() {
-        if(new Select().from(Product.class).count() == 0) {
-            new Category("Owoce").save();
-            new Category("Warzywa").save();
-            new Category("Rozrywka").save();
-            new Category("Chemia").save();
-            new Category("Mieso").save();
-        }
     }
 
     private void openProductsFragment() {

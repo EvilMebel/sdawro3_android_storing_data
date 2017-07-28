@@ -1,6 +1,7 @@
 package com.sdacademy.zientara.rafal.awesomeapp.models;
 
 import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
 
 /**
  * Created by Evil on 28.07.2017.
@@ -8,15 +9,23 @@ import com.activeandroid.Model;
 
 public class Product extends Model {
 
+    @Column(name = "name", notNull = true)
     private String name;
 
+    @Column(name = "category", notNull = true)
     private Category category;
 
+    @Column(name = "count", notNull = true)
     private Double count;
 
+    @Column(name = "price", notNull = true)
     private Double price;
 
-    private Boolean isPurchased;
+    @Column(name = "is_purchased", notNull = true)
+    private Integer isPurchased;
+
+    public Product() {
+    }
 
     public String getName() {
         return name;
@@ -50,13 +59,24 @@ public class Product extends Model {
         this.price = price;
     }
 
-    public Boolean getPurchased() {
+    public Integer getIsPurchased() {
         return isPurchased;
     }
 
-    public void setPurchased(Boolean purchased) {
-        isPurchased = purchased;
+    public void setIsPurchased(Integer isPurchased) {
+        this.isPurchased = isPurchased;
     }
+/*
+    public boolean getPurchased() {
+        return isPurchased!= null && isPurchased != 0;
+    }
+
+    public void setPurchased(boolean isPurchased) {
+        if(isPurchased)
+            this.isPurchased = 1;
+        else
+            this.isPurchased = 0;
+    }*/
 
     @Override
     public String toString() {
@@ -67,5 +87,9 @@ public class Product extends Model {
                 ", price=" + price +
                 ", isPurchased=" + isPurchased +
                 '}';
+    }
+
+    public String getDetails() {
+        return String.format("%s x%s %s$ (%s)",name, count, price, category.getName());
     }
 }

@@ -78,6 +78,12 @@ public class ProductsFragment extends Fragment {
     @OnClick(R.id.productsFragment_addButton)
     public void addProductClick() {
         AddProductDialog dialog = new AddProductDialog();
+        dialog.setListener(new AddProductDialog.OnProductAdded() {
+            @Override
+            public void onProductAdded() {
+                loadProducts();
+            }
+        });
         dialog.show(getFragmentManager(), null);
     }
 
