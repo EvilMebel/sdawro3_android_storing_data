@@ -36,7 +36,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductViewHolder> {
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.checkBox.setChecked(product.getPurchased());
-        holder.details.setText(product.getName());//// TODO: 28.07.2017 more details
+        //// TODO: 28.07.2017 more details
+        holder.details.setText(product.getName());
     }
 
     @Override
