@@ -15,6 +15,13 @@ public class Category extends Model {
     @Column(name = COLUMN_NAME, notNull = true)
     private String name;
 
+    public Category() {
+    }
+
+    public Category(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

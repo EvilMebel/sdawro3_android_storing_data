@@ -71,11 +71,6 @@ public class CategoriesFragment extends Fragment {
             createCategory(newCatName);
         else
             showToast("This category exists!");
-
-        Category loadCategory = Model.load(Category.class, 1);
-        Category selectCategory = new Select().from(Category.class).where("mId == 1").executeSingle();
-        boolean b = loadCategory == selectCategory;
-
         refreshOutput();
     }
 

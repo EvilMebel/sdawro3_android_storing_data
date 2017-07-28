@@ -5,6 +5,7 @@ import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
@@ -16,12 +17,13 @@ import java.util.List;
  * Created by Evil on 28.07.2017.
  */
 
-public class CategorySpinnerAdapter implements SpinnerAdapter {
+public class CategorySpinnerAdapter extends ArrayAdapter<Category> {
     private final LayoutInflater inflater;
     private Context applicationContext;
     private List<Category> categories;
 
     public CategorySpinnerAdapter(Context applicationContext, List<Category> categories) {
+        super(applicationContext, android.R.layout.simple_list_item_1);
         this.applicationContext = applicationContext;
         this.categories = categories;
         inflater = (LayoutInflater) applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -35,20 +37,10 @@ public class CategorySpinnerAdapter implements SpinnerAdapter {
 
         TextView text = (TextView) view.findViewById(android.R.id.text1);
 
-        Category item = (Category) getItem(position);
+        Category item = getItem(position);
         text.setText(item.getName());
 
         return view;
-    }
-
-    @Override
-    public void registerDataSetObserver(DataSetObserver observer) {
-
-    }
-
-    @Override
-    public void unregisterDataSetObserver(DataSetObserver observer) {
-
     }
 
     @Override
@@ -57,33 +49,18 @@ public class CategorySpinnerAdapter implements SpinnerAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Category getItem(int position) {
         return categories.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public boolean hasStableIds() {
-        return false;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         return getDropDownView(position, convertView, parent);
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return 0;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 0;
     }
 
     @Override

@@ -5,9 +5,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.activeandroid.query.Select;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.CategoriesFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.ProductsFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.SettingsFragment;
+import com.sdacademy.zientara.rafal.awesomeapp.models.Category;
+import com.sdacademy.zientara.rafal.awesomeapp.models.Product;
 
 public class MainActivity extends BaseActivity implements CategoriesFragment.InteractionListener,
         ProductsFragment.InteractionListener {
@@ -20,7 +23,24 @@ public class MainActivity extends BaseActivity implements CategoriesFragment.Int
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        openCategoriesFragment();
+        openProductsFragment();
+
+        initCategories();
+
+    }
+
+    private void initCategories() {
+        if(new Select().from(Product.class).count() == 0) {
+            new Category("Owoce").save();
+            new Category("Warzywa").save();
+            new Category("Rozrywka").save();
+            new Category("Chemia").save();
+            new Category("Mieso").save();
+        }
+    }
+
+    private void openProductsFragment() {
+        openFragment(new ProductsFragment(), false);
     }
 
     private void openCategoriesFragment() {

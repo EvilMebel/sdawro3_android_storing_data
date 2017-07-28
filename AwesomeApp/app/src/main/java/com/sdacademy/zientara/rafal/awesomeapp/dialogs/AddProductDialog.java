@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.activeandroid.Model;
 import com.activeandroid.query.Select;
 import com.sdacademy.zientara.rafal.awesomeapp.R;
 import com.sdacademy.zientara.rafal.awesomeapp.adapter.CategorySpinnerAdapter;
@@ -42,6 +41,7 @@ public class AddProductDialog extends DialogFragment {
     @BindView(R.id.addProductDialog_addButton)
     Button addButton;
     private List<Category> categories;
+    private CategorySpinnerAdapter spinnerAdapter;
 
 
     @Override
@@ -57,6 +57,7 @@ public class AddProductDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         categories = new Select().from(Category.class).execute();
-        categorySpinner.setAdapter(new CategorySpinnerAdapter(getActivity().getApplicationContext(), categories));
+        spinnerAdapter = new CategorySpinnerAdapter(getActivity().getApplicationContext(), categories);
+        categorySpinner.setAdapter(spinnerAdapter);
     }
 }

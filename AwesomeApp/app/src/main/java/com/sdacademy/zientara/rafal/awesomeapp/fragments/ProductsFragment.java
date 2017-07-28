@@ -13,16 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.query.Select;
 import com.sdacademy.zientara.rafal.awesomeapp.R;
 import com.sdacademy.zientara.rafal.awesomeapp.adapter.ProductsAdapter;
+import com.sdacademy.zientara.rafal.awesomeapp.dialogs.AddProductDialog;
 import com.sdacademy.zientara.rafal.awesomeapp.models.Product;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProductsFragment extends Fragment {
     private InteractionListener mListener;
@@ -70,6 +73,12 @@ public class ProductsFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement InteractionListener");
         }
+    }
+
+    @OnClick(R.id.productsFragment_addButton)
+    public void addProductClick() {
+        AddProductDialog dialog = new AddProductDialog();
+        dialog.show(getFragmentManager(), null);
     }
 
     @Override
