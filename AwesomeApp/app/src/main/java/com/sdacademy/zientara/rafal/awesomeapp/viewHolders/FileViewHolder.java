@@ -10,9 +10,6 @@ import com.sdacademy.zientara.rafal.awesomeapp.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Evil on 25.07.2017.
- */
 
 public class FileViewHolder extends RecyclerView.ViewHolder {
 
