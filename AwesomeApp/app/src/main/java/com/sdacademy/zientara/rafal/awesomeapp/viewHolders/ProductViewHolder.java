@@ -2,6 +2,7 @@ package com.sdacademy.zientara.rafal.awesomeapp.viewHolders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,18 +15,15 @@ import butterknife.ButterKnife;
  * Created by Evil on 25.07.2017.
  */
 
-public class FileViewHolder extends RecyclerView.ViewHolder {
+public class ProductViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.fileItem_icon)
-    public ImageView icon;
+    @BindView(R.id.productItem_details)
+    public TextView details;
 
-    @BindView(R.id.fileItem_nameText)
-    public TextView nameText;
+    @BindView(R.id.productItem_checkBox)
+    public CheckBox checkBox;
 
-    @BindView(R.id.fileItem_fileSizeText)
-    public TextView fileSizeText;
-
-    public FileViewHolder(View itemView) {
+    public ProductViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }

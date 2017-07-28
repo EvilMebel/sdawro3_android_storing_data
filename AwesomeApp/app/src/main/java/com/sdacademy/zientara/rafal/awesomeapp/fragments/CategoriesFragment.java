@@ -67,19 +67,28 @@ public class CategoriesFragment extends Fragment {
     @OnClick(R.id.categoriesFragment_addCategory)
     public void clickSaveButton() {
         String newCatName = categoryName.getText().toString().trim();
-        List<Category> models = new Select().from(Category.class)
-                .where(Category.COLUMN_NAME + " like ?", newCatName)
-                .execute();
-        int count = models.size();
-        if (count == 0) {
-            Category category = new Category();
-            category.setName(newCatName);
-            category.save();
-        } else {
+        if (categoryExists(newCatName))
+            createCategory(newCatName);
+        else
             showToast("This category exists!");
-        }
+
+        Category loadCategory = Model.load(Category.class, 1);
+        Category selectCategory = new Select().from(Category.class).where("mId == 1").executeSingle();
+        boolean b = loadCategory == selectCategory;
 
         refreshOutput();
+    }
+
+    private void createCategory(String newCatName) {
+        Category category = new Category();
+        category.setName(newCatName);
+        category.save();
+    }
+
+    private boolean categoryExists(String newCatName) {
+        return new Select().from(Category.class)
+                    .where(Category.COLUMN_NAME + " like ?", newCatName)
+                    .count() == 0;
     }
 
     private void showToast(String s) {

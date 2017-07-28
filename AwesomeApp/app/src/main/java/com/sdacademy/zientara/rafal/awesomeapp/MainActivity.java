@@ -1,16 +1,16 @@
 package com.sdacademy.zientara.rafal.awesomeapp;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.activeandroid.ActiveAndroid;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.CategoriesFragment;
+import com.sdacademy.zientara.rafal.awesomeapp.fragments.ProductsFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.SettingsFragment;
 
-public class MainActivity extends BaseActivity implements CategoriesFragment.InteractionListener {
+public class MainActivity extends BaseActivity implements CategoriesFragment.InteractionListener,
+        ProductsFragment.InteractionListener {
     private static final int EXTERNAL_STORAGE_REQUEST_CODE = 1500;
     private String currentPath;
 
@@ -49,6 +49,11 @@ public class MainActivity extends BaseActivity implements CategoriesFragment.Int
 
     @Override
     public void doNothing() {
+
+    }
+
+    @Override
+    public void addedNewProduct() {
 
     }
 }
