@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.CategoriesFragment;
@@ -65,7 +66,7 @@ public class MainActivity extends BaseActivity implements CategoriesFragment.Int
     }
 
     private void openReportFragment() {
-        openFragment(new ReportFragment(), false);
+        openFragment(new ReportFragment(), true);
     }
 
     private void openSettingsFragment() {
@@ -80,5 +81,14 @@ public class MainActivity extends BaseActivity implements CategoriesFragment.Int
     @Override
     public void addedNewProduct() {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        else
+//            finish();
+            Toast.makeText(this, "You will never escape! >:D", Toast.LENGTH_SHORT).show();
     }
 }

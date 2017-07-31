@@ -40,8 +40,17 @@ public class ReportFragment extends Fragment {
     }
 
     private void loadReport() {
-//        int purchasedItems = getPurchasedItemsCount();
+        int purchasedItems = getPurchasedItemsCount();
         int allItems = getAllItemsCount();
+        String purchased = String.format("Progress %d/%d", purchasedItems, allItems);
+
+        outputText.setText(purchased);
+    }
+
+    private int getPurchasedItemsCount() {
+        return new Select().from(Product.class)
+                .where("is_purchased != 0")
+                .count();
     }
 
     private int getAllItemsCount() {
