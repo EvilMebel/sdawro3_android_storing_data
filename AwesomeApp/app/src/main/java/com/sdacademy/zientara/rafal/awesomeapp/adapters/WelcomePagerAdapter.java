@@ -4,14 +4,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.sdacademy.zientara.rafal.awesomeapp.R;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.pager.FirstPageFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.pager.SecondPageFragment;
 
 import java.util.Locale;
 
+import butterknife.OnClick;
+
 public class WelcomePagerAdapter extends FragmentStatePagerAdapter {
-    private static final String EXECUTED_TEST_DETAILS = "First Title";
-    private static final String EXECUTED_TEST_INFO = "Second title";
+    private static final String FIRST_TITLE = "First Title";
+    private static final String SECOND_TITLE = "Second title";
     private static final int NUMBER_OF_PAGES = 2;
 
     public WelcomePagerAdapter(FragmentManager fragmentManager) {
@@ -41,9 +44,9 @@ public class WelcomePagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return EXECUTED_TEST_INFO;
+                return FIRST_TITLE;
             case 1:
-                return EXECUTED_TEST_DETAILS;
+                return SECOND_TITLE;
             default:
                 throwException(position);
                 return null;
