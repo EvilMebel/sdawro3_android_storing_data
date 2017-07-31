@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.sdacademy.zientara.rafal.awesomeapp.database.datasource.NewsDS;
 import com.sdacademy.zientara.rafal.awesomeapp.entity.News;
@@ -35,27 +34,6 @@ public class AwesomeDBHelper extends SQLiteOpenHelper {
     private AwesomeDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
-
-        try {
-            createDataBase();
-            Log.d("Success Create Database", "Success Create Database");
-
-        } catch (IOException e) {
-            Log.d("Error Create Database", e.getMessage());
-        }
-
-    }
-
-    public void createDataBase() throws IOException {
-        boolean dbExists = databaseFileExists();
-        SQLiteDatabase dbRead = null;
-
-        if (!dbExists) {
-            String path = getReadableDatabase().getPath();
-            dbRead = getReadableDatabase();
-            dbRead.close();
-            copyDatabase();
-        }
     }
 
     private boolean databaseFileExists() {
@@ -65,22 +43,29 @@ public class AwesomeDBHelper extends SQLiteOpenHelper {
         return dbFile.exists();
     }
 
-    private void copyDatabase() throws IOException {
-        AssetManager assets = context.getAssets();
-        InputStream input = assets.open(DB_NAME);
-        String outputPath = context.getDatabasePath(DB_NAME).toString();
-        OutputStream output = new FileOutputStream(outputPath);
+    private String getSqlInitQuery() {
+        try {
+            AssetManager assets = context.getAssets();
+            InputStream input = null;
 
-        byte[] buffer = new byte[1024];
-        int length;
+            input = assets.open(DB_NAME);
+            String outputPath = context.getDatabasePath(DB_NAME).toString();
+            OutputStream output = new FileOutputStream(outputPath);
 
-        while ((length = input.read(buffer)) > 0) {
-            output.write(buffer, 0, length);
+            StringBuffer fileContent = new StringBuffer("");
+
+            byte[] buffer = new byte[1024];
+
+            int n;
+            while ((n = input.read(buffer)) != -1) {
+                fileContent.append(new String(buffer, 0, n));
+            }
+            input.close();
+            return fileContent.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        output.flush();
-        output.close();
-        input.close();
+        return "";
     }
 
     @Override
@@ -93,6 +78,16 @@ public class AwesomeDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE `news` (\n" +
+                "\t`Id`\tINTEGER,\n" +
+                "\t`Name`\tVARCHAR,\n" +
+                "\t`Description`\tVARCHAR,\n" +
+                "\t`DateStart`\tINTEGER DEFAULT (null),\n" +
+                "\t`DateFinish`\tINTEGER DEFAULT (null),\n" +
+                "\t`Path`\tVARCHAR,\n" +
+                "\t`isAsset`\tINTEGER\n" +
+                ");");
+        //db.execSQL(getSqlInitQuery());
     }
 
     @Override

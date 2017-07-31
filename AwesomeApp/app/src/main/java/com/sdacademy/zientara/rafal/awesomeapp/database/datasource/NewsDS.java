@@ -25,12 +25,15 @@ public final class NewsDS {
 
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         Date today = Calendar.getInstance().getTime();
+//        System.currentTimeMillis();
         String reportDate = df.format(today);
 
         SQLiteDatabase database = openHelper.getReadableDatabase();
         String selection = String.format("%s < %s AND %s > %s", AwesomeDBSchema.News.Column.DateStart, reportDate,
                 AwesomeDBSchema.News.Column.DateFinish, reportDate);
-        Cursor cursor = database.query(AwesomeDBSchema.Tables.News, AwesomeDBSchema.News.Column.AllColumns,
+
+        Cursor cursor = database.query(AwesomeDBSchema.Tables.News,
+                AwesomeDBSchema.News.Column.AllColumns,
                 null, null, null, null, null);
 
         cursor.moveToFirst();
@@ -55,7 +58,8 @@ public final class NewsDS {
     public static News getNewsById(int idNews, AwesomeDBHelper openHelper) {
         SQLiteDatabase database = openHelper.getReadableDatabase();
         String selection = String.format("%s = %s", AwesomeDBSchema.News.Column.Id, idNews);
-        Cursor cursor = database.query(AwesomeDBSchema.Tables.News, AwesomeDBSchema.News.Column.AllColumns,
+        Cursor cursor = database.query(AwesomeDBSchema.Tables.News,
+                AwesomeDBSchema.News.Column.AllColumns,
                 selection, null, null, null, null);
 
         cursor.moveToFirst();
