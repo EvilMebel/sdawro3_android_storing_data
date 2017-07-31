@@ -2,11 +2,13 @@ package com.sdacademy.zientara.rafal.awesomeapp.models;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 
 /**
  * Created by Evil on 28.07.2017.
  */
 
+@Table(name = "products")
 public class Product extends Model {
 
     @Column(name = "name", notNull = true)

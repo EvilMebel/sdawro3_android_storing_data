@@ -8,7 +8,7 @@ import com.activeandroid.annotation.Table;
  * Created by Evil on 27.07.2017.
  */
 
-//@Table(name = "Categories")
+@Table(name = "categories")
 public class Category extends Model {
     public static final String COLUMN_NAME = "cname";
 
