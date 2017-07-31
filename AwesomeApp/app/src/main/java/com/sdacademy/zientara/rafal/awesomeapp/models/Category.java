@@ -3,6 +3,7 @@ package com.sdacademy.zientara.rafal.awesomeapp.models;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Delete;
 
 /**
  * Created by Evil on 27.07.2017.

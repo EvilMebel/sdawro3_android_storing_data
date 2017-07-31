@@ -49,14 +49,15 @@ public class ReportFragment extends Fragment {
         int allItems = getAllItemsCount();
         showPurchasedInfo(purchasedItems, allItems);
         List<Category> categories = new Select().from(Category.class).execute();
-        for(Category category : categories)
+        for (Category category : categories)
             appendCategoryTotalCosts(category);
         appendTotalCosts();
     }
 
     private void appendCategoryTotalCosts(Category category) {
         double fruitsTotalCosts = DbHelper.getCostsOfCategory(category.getName());
-        outputText.append(String.format("\n%s costs: %.2f PLN", category.getName(), fruitsTotalCosts));
+        if (fruitsTotalCosts != 0)
+            outputText.append(String.format("\n%s costs: %.2f PLN", category.getName(), fruitsTotalCosts));
     }
 
     private void appendTotalCosts() {
@@ -72,15 +73,14 @@ public class ReportFragment extends Fragment {
     private double getFruitsTotalCosts() {
         return DbHelper.getDoubleFromRawQuery(
                 "SELECT sum(price * count) AS count FROM 'products' AS 'p'" +
-                "JOIN 'categories' AS 'c' ON c.id == p.category " +
-                "WHERE c.cname LIKE \"Owoce\"");
+                        "JOIN 'categories' AS 'c' ON c.id == p.category " +
+                        "WHERE c.cname LIKE \"Owoce\"");
     }
 
     private double getTotalCosts() {
 //        return DbHelper.getDoubleFromRawQuery("SELECT count(*) AS count from 'products'");
         return DbHelper.getDoubleFromRawQuery("SELECT sum(price * count) AS count from 'products'");
     }
-
 
 
     private int getPurchasedItemsCount() {
