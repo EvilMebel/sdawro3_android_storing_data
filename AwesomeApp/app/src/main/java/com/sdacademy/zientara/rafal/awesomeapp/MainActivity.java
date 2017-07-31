@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.SettingsFragment;
+import com.sdacademy.zientara.rafal.awesomeapp.fragments.pager.WelcomePagerFragment;
 
 public class MainActivity extends BaseActivity {
     private static final int EXTERNAL_STORAGE_REQUEST_CODE = 1500;
@@ -18,7 +19,12 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        openSettingsFragment();
+//        openSettingsFragment();
+        openWelcomeFragment();
+    }
+
+    private void openWelcomeFragment() {
+        openFragment(new WelcomePagerFragment(), false);
     }
 
 
