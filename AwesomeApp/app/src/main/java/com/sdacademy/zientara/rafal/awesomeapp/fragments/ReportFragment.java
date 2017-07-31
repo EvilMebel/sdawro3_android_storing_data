@@ -1,7 +1,5 @@
 package com.sdacademy.zientara.rafal.awesomeapp.fragments;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.activeandroid.ActiveAndroid;
+import com.activeandroid.Model;
 import com.activeandroid.query.Select;
 import com.sdacademy.zientara.rafal.awesomeapp.R;
+import com.sdacademy.zientara.rafal.awesomeapp.models.Category;
 import com.sdacademy.zientara.rafal.awesomeapp.models.Product;
 import com.sdacademy.zientara.rafal.awesomeapp.utils.DbHelper;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,13 +48,15 @@ public class ReportFragment extends Fragment {
         int purchasedItems = getPurchasedItemsCount();
         int allItems = getAllItemsCount();
         showPurchasedInfo(purchasedItems, allItems);
-        appendFruitsTotalCosts();
+        List<Category> categories = new Select().from(Category.class).execute();
+        for(Category category : categories)
+            appendCategoryTotalCosts(category);
         appendTotalCosts();
     }
 
-    private void appendFruitsTotalCosts() {
-        double fruitsTotalCosts = getFruitsTotalCosts();
-        outputText.append(String.format("\nFruits costs: %.2f PLN", fruitsTotalCosts));
+    private void appendCategoryTotalCosts(Category category) {
+        double fruitsTotalCosts = DbHelper.getCostsOfCategory(category.getName());
+        outputText.append(String.format("\n%s costs: %.2f PLN", category.getName(), fruitsTotalCosts));
     }
 
     private void appendTotalCosts() {
@@ -67,7 +70,10 @@ public class ReportFragment extends Fragment {
     }
 
     private double getFruitsTotalCosts() {
-        ;gktrhihiurh
+        return DbHelper.getDoubleFromRawQuery(
+                "SELECT sum(price * count) AS count FROM 'products' AS 'p'" +
+                "JOIN 'categories' AS 'c' ON c.id == p.category " +
+                "WHERE c.cname LIKE \"Owoce\"");
     }
 
     private double getTotalCosts() {

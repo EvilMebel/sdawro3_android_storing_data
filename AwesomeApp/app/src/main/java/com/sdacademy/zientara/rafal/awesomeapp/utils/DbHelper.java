@@ -11,10 +11,19 @@ import com.activeandroid.ActiveAndroid;
 
 public class DbHelper {
 
+    public static double getCostsOfCategory(String categoryName) {
+        return DbHelper.getDoubleFromRawQuery(
+                "SELECT sum(price * count) AS count FROM 'products' AS 'p'" +
+                        "JOIN 'categories' AS 'c' ON c.id == p.category " +
+                        "WHERE c.cname LIKE \"" + categoryName + "\"");
+    }
+
     public static double getDoubleFromRawQuery(String query) {
         SQLiteDatabase database = ActiveAndroid.getDatabase();
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
         return cursor.getDouble(0);
     }
+
+
 }
