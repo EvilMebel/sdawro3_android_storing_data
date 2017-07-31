@@ -65,13 +65,12 @@ public class ProductsFragment extends Fragment {
                 .join(Category.class).as("c")
                 .on("c.id == p.category")
                 .where("c.id == 1").execute();
-        */
-        
+*/
         /*
     SELECT * FROM products
     JOIN categories AS cat
-    ON categories.id == porducts.categoryid
-    WHERE categories.id == 1
+    ON cat.id == products.categoryid
+    WHERE cat.id == 1
      */
         productsAdapter = new ProductsAdapter(getActivity(), productsList);
         recyclerView.setAdapter(productsAdapter);

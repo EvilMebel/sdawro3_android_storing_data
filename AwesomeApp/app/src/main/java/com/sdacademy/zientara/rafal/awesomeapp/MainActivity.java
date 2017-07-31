@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import com.activeandroid.query.Select;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.CategoriesFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.ProductsFragment;
+import com.sdacademy.zientara.rafal.awesomeapp.fragments.ReportFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.fragments.SettingsFragment;
 import com.sdacademy.zientara.rafal.awesomeapp.models.Category;
 import com.sdacademy.zientara.rafal.awesomeapp.models.Product;
@@ -46,8 +47,25 @@ public class MainActivity extends BaseActivity implements CategoriesFragment.Int
             case R.id.action_settings:
                 openSettingsFragment();
                 return true;
+
+            case R.id.action_categories:
+                openCategoriesFragment();
+                return true;
+
+            case R.id.action_products:
+                openProductsFragment();
+                return true;
+
+            case R.id.action_report:
+                openReportFragment();
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openReportFragment() {
+        openFragment(new ReportFragment(), false);
     }
 
     private void openSettingsFragment() {

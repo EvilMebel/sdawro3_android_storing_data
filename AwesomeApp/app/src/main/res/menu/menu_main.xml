@@ -4,8 +4,25 @@
     tools:context="com.sdacademy.zientara.rafal.awesomeapp.MainActivity">
 
     <item
+        android:id="@+id/action_products"
+        android:orderInCategory="101"
+        android:title="Products"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_categories"
+        android:orderInCategory="102"
+        android:title="Categories"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_report"
+        android:orderInCategory="103"
+        android:title="Report"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="110"
         android:title="@string/action_settings"
         app:showAsAction="never" />
 
